@@ -1,0 +1,441 @@
+/* Global Reset and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-red: #E50914; /* Classic Netflix Red */
+    --dark-bg: #000000; /* Deep Black Background */
+    --card-bg: #111111; /* Slightly lighter black for card base */
+    --text-light: #f5f5f5;
+    --text-gray: #b3b3b3;
+    --font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: var(--dark-bg); /* Applying the deep black background */
+    color: var(--text-light);
+    font-family: var(--font-family);
+    min-height: 100vh;
+}
+
+/* -----------------------
+   HEADER / NAVIGATION
+   ----------------------- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: rgba(0, 0, 0, 0.95); /* Nearly solid black header */
+    backdrop-filter: blur(5px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(229, 9, 20, 0.1); /* Subtle red shadow */
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-red);
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    font-size: 35px;
+    margin-right: 8px;
+    line-height: 1;
+    /* Enhanced text shadow for glow effect */
+    text-shadow: 0 0 5px var(--primary-red), 0 0 10px rgba(229, 9, 20, 0.5); 
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    opacity: 0.8;
+    position: relative;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-link.active::after, .nav-link:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-red);
+    transform: scaleX(1);
+    transition: transform 0.3s ease;
+}
+
+.nav-link:not(.active)::after {
+    transform: scaleX(0);
+}
+
+.nav-link.active, .nav-link:hover {
+    color: var(--text-light);
+    opacity: 1;
+}
+
+.icon-group {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-icon {
+    color: var(--text-light);
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-icon:hover {
+    color: var(--primary-red);
+}
+
+.profile-icon {
+    font-size: 24px;
+}
+
+/* -----------------------
+   MAIN CONTENT & HERO
+   ----------------------- */
+.main-content {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 50px 0 100px;
+}
+
+.hero-section {
+    padding: 50px 0;
+    margin-bottom: 40px;
+    /* Subtle text fade on the background */
+    background: radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.hero-title {
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: left;
+    color: var(--text-light);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.hero-subtitle {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-gray);
+    font-weight: 400;
+}
+
+/* -----------------------
+   SELECTION FORM
+   ----------------------- */
+.selection-area {
+    margin-bottom: 60px;
+}
+
+.selection-form {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap; 
+    background-color: #0A0A0A; /* Darker than card-bg for contrast */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    border: 1px solid #1a1a1a;
+}
+
+.form-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.select-wrapper {
+    position: relative;
+    flex-grow: 1;
+    min-width: 300px;
+}
+
+.movie-select {
+    padding: 12px 20px;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #222;
+    color: var(--text-light);
+    border: 2px solid #555;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23e50914'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1.2em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-select:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.5); /* Focus glow */
+}
+
+.recommend-button {
+    padding: 12px 30px;
+    font-size: 16px;
+    background: linear-gradient(90deg, var(--primary-red) 0%, #ff3842 100%);
+    color: var(--text-light);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.4);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.recommend-button:hover {
+    background: linear-gradient(90deg, #ff3842 0%, var(--primary-red) 100%);
+    transform: scale(1.02); /* Subtle pop */
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.6);
+}
+
+.recommend-button:active {
+    transform: scale(0.98);
+}
+
+/* -----------------------
+   RESULTS GRID (HORIZONTAL SCROLL)
+   ----------------------- */
+.results-section {
+    padding-top: 20px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--text-light);
+}
+
+.highlight {
+    color: var(--primary-red);
+    text-shadow: 0 0 5px rgba(229, 9, 20, 0.3);
+}
+
+/* Container for horizontal scroll */
+.horizontal-scroll-container {
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    padding-bottom: 20px; 
+    margin-bottom: 40px;
+    /* Custom Scrollbar for Webkit browsers */
+    --scrollbar-color: #333;
+    --scrollbar-thumb: var(--primary-red);
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-track {
+    background: var(--scrollbar-color);
+    border-radius: 10px;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 10px;
+}
+
+/* Inner Flex container for the movie cards */
+.grid.horizontal-grid {
+    display: flex; /* Use flexbox to line up items horizontally */
+    flex-wrap: nowrap; /* Prevent wrapping to the next line */
+    gap: 15px; 
+    padding: 5px 0; 
+}
+
+.card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    flex: 0 0 auto; 
+    width: 200px; /* Fixed width for desktop cards */
+    /* Smoother transition */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.08); /* Slightly larger scale for horizontal row */
+    /* Enhanced glow effect on hover */
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.6), 0 10px 20px rgba(0, 0, 0, 0.8);
+    z-index: 5;
+}
+
+.card-img {
+    width: 100%;
+    aspect-ratio: 2 / 3; 
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .card-img {
+    opacity: 0.2; /* Deeper fade for better overlay contrast */
+}
+
+.card-title {
+    padding: 10px 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-align: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%); /* Fade title background */
+    position: absolute; /* Place title correctly */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+/* Card Hover Overlay (Play Button Effect) */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.85); /* Darker overlay */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    padding: 20px;
+}
+
+.card:hover .card-overlay {
+    opacity: 1;
+}
+
+.play-icon {
+    font-size: 50px;
+    color: var(--primary-red);
+    margin-bottom: 10px;
+    border: 3px solid var(--primary-red);
+    border-radius: 50%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+    transition: all 0.2s ease;
+}
+
+.play-icon:hover {
+    color: white;
+    background-color: var(--primary-red);
+}
+
+.overlay-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+/* Error Message Styling */
+.error-message {
+    color: var(--primary-red);
+    padding: 25px;
+    text-align: center;
+    font-size: 18px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    margin-top: 40px;
+    border-left: 5px solid var(--primary-red);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Footer Styling */
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #1a1a1a;
+    color: var(--text-gray);
+    font-size: 14px;
+    margin-top: 50px;
+}
+
+
+/* -----------------------
+   MOBILE RESPONSIVENESS
+   ----------------------- */
+@media (max-width: 992px) {
+    /* Slightly smaller card size for better viewing on tablets */
+    .card {
+        width: 170px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 3%;
+        gap: 10px;
+    }
+    .nav-link {
+        display: none;
+    }
+    .icon-group {
+        gap: 15px;
+    }
+    .hero-title {
+        font-size: 30px;
+    }
+    .hero-subtitle {
+        font-size: 16px;
+    }
+    .section-title {
+        font-size: 24px;
+    }
+    .selection-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .select-wrapper {
+        min-width: 100%;
+    }
+    
+    /* Adjust card width for smaller screens in the horizontal row */
+    .card {
+        width: 120px; 
+    }
+    
+    .card-title {
+        font-size: 12px;
+    }
+    
+    .main-content {
+        padding: 20px 10px;
+    }
+}

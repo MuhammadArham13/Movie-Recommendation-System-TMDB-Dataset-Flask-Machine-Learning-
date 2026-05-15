@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Gen Movie Recommender</title>
+    <!-- Link to the updated stylish dark-themed stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for the user icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Navigation Bar (Sticky) -->
+    <header class="header">
+        <div class="logo">
+            <!-- Sleek logo treatment -->
+            <span class="logo-icon">M</span> FlixRecommender
+        </div>
+        <nav class="nav">
+            <a href="#" class="nav-link active">Home</a>
+            <a href="#" class="nav-link">Catalog</a>
+            <a href="#" class="nav-link">My List</a>
+            <!-- Icons for Search, Notifications, User -->
+            <div class="icon-group">
+                <i class="fas fa-search nav-icon"></i>
+                <i class="fas fa-bell nav-icon"></i>
+                <i class="fas fa-user-circle nav-icon profile-icon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <h1 class="hero-title">Discover Your Next Obsession.</h1>
+            <p class="hero-subtitle">Select a movie below to get personalized recommendations instantly.</p>
+        </div>
+
+        <section class="selection-area">
+            <form method="POST" action="/" class="selection-form">
+                <label for="movie-dropdown" class="form-label">Start with a film you like:</label>
+                <!-- Select Dropdown with Jinja Loop -->
+                <div class="select-wrapper">
+                    <select name="movie" id="movie-dropdown" class="movie-select">
+                        <option value="">-- Choose a Movie --</option>
+                        {% for movie in movie_list %}
+                            <!-- Preserve the selected movie after POST -->
+                            <option value="{{ movie }}" {% if movie == selected_movie %}selected{% endif %}>{{ movie }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="recommend-button">
+                    Get Recommendations
+                    <i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </form>
+        </section>
+
+        <!-- Recommendation Results Area -->
+        {% if show_results %}
+            <section class="results-section">
+                <h2 class="section-title">Because you watched: <span class="highlight">{{ selected_movie }}</span></h2>
+                
+                <!-- 💡 WRAPPING GRID IN A NEW SCROLL CONTAINER -->
+                <div class="horizontal-scroll-container">
+                    <div id="results" class="grid horizontal-grid">
+                        {% for name, poster in recommended_names | zip(recommended_posters) %}
+                            <div class="card">
+                                <!-- Poster Image -->
+                                <img src="{{ poster }}" alt="{{ name }}" class="card-img" onerror="this.onerror=null;this.src='https://placehold.co/500x750/111111/f5f5f5?text=No+Poster';">
+                                <!-- Movie Title -->
+                                <p class="card-title">{{ name }}</p>
+                                <div class="card-overlay">
+                                    <i class="fas fa-play play-icon"></i>
+                                    <p class="overlay-text">{{ name }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        {% elif selected_movie and selected_movie != "" and not show_results %}
+            <p class="error-message">Sorry, we couldn't find recommendations for "{{ selected_movie }}". Please try another title.</p>
+        {% endif %}
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 FlixRecommender. Powered by TMDb API.</p>
+    </footer>
+
+</body>
+</html>
