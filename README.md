@@ -1,11 +1,5 @@
-# ids-project
-# Project Proposal  
-## **Movie Recommender System using TMDB Dataset and Flask GUI**
 
-### **Group Members**
-- Azfar Abbasi (24K-2576)  
-- M. Arham (24K-2529)  
-- Ashhad (24K-2544)
+## **Movie Recommender System using TMDB Dataset and Flask GUI**
 
 ---
 
